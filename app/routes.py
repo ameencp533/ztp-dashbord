@@ -28,5 +28,6 @@ def device_status():
     
     # You can use the vendor_class_id if needed in your logic
     print(f"Vendor Class ID: {vendor_class_id}")
-    
+    print(f"ip address: {ip_address}")
+        
     return jsonify({'message': 'Device status updated successfully'}), 200
