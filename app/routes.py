@@ -15,19 +15,18 @@ def index():
 def device_status():
     data = request.json
     ip_address = data['ip_address']
-    status = data['status']
+    vendor_class_id = data['vendor_class_id']
     
     device = Device.query.filter_by(ip_address=ip_address).first()
     if not device:
-        device = Device(ip_address=ip_address, status=status, last_updated=datetime.utcnow())
+        device = Device(ip_address=ip_address, status="new", last_updated=datetime.utcnow())
     else:
-        device.status = status
         device.last_updated = datetime.utcnow()
     
     db.session.add(device)
     db.session.commit()
     
-    if status == 'ready for SSH and NETCONF':
-        start_netconf_session(ip_address, 'your-username', 'your-password')
+    # You can use the vendor_class_id if needed in your logic
+    print(f"Vendor Class ID: {vendor_class_id}")
     
     return jsonify({'message': 'Device status updated successfully'}), 200
