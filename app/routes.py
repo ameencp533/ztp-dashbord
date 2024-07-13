@@ -16,6 +16,7 @@ def device_status():
     data = request.json
     ip_address = data['ip_address']
     vendor_class_id = data['vendor_class_id']
+    ethernet=data['ethernet']
     
     device = Device.query.filter_by(ip_address=ip_address).first()
     if not device:
@@ -29,5 +30,5 @@ def device_status():
     # You can use the vendor_class_id if needed in your logic
     print(f"Vendor Class ID: {vendor_class_id}")
     print(f"ip address: {ip_address}")
-        
+
     return jsonify({'message': 'Device status updated successfully'}), 200
